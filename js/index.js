@@ -66,6 +66,14 @@ function create(){
     
     tiles[1] = platforms.create(1180,game.world.height - 550,"platform");
     tiles[1].body.immovable = true; 
+	
+	tiles[2] = platforms.create(990,game.world.height - 430, "platform");
+    tiles[2].scale.setTo(0.3,0.3);
+    tiles[2].body.immovable = true;
+    
+    tiles[3] = platforms.create(400,game.world.height - 250, "platform");
+    tiles[3].scale.setTo(0.3,0.3);
+    tiles[3].body.immovable = true;
     
     //ground
     game.add.sprite(100,game.world.height - 161,"sign");
@@ -81,6 +89,10 @@ function create(){
     //second platform
     game.add.sprite(1230,game.world.height - 596,"bush");
     game.add.sprite(1290,game.world.height -604,"stone");
+	
+	//little platform
+    game.add.sprite(400,game.world.height -296,"bush");
+    game.add.sprite(450,game.world.height -291, "mushroom");
     
     player = game.add.sprite(0,game.world.height-270,'ninja','idle/0001.png');
 	player.scale.setTo(0.2,0.2);
@@ -99,7 +111,7 @@ function create(){
     game.physics.arcade.enable(enemyRed);
 	  
     player.body.bounce.y = 0.1;
-    player.body.gravity.y = 400;
+    player.body.gravity.y = 600;
     player.body.collideWorldBounds = true;
 	
 	//Player animations
@@ -131,12 +143,23 @@ function create(){
       star.body.gravity.y = 9;
       star.body.bounce.y = 0.7 + Math.random() * 0.4;
     }
+	for(var i = 0; i < 9; i++)
+	{
+	star = stars.create(980 + i*60,game.world.height-150,"star");
+	star.body.gravity.y = 9;
+	star.body.bounce.y = 0.7 + Math.random() * 0.4;
+	}
+
+	for(var i = 0; i < 6; i++)
+	{
+	star = stars.create(1200 + i*60,game.world.height-650,"star");
+	star.body.gravity.y = 9;
+	}
 	
 	cursors = game.input.keyboard.createCursorKeys();
 	space = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR); // 32 is DEC of SPACE in ascii table
 	xKey = game.input.keyboard.addKey(Phaser.Keyboard.X); // 120 is DEC of x in ascii table
 	
-    
     game.camera.follow(player);
 }
 function update() {
@@ -146,7 +169,8 @@ function update() {
       game.physics.arcade.collide(enemyRed,platforms);
       game.physics.arcade.collide(stars,platforms);
       game.physics.arcade.overlap(player,stars,collectStar,null,this);
-      game.physics.arcade.overlap(player,enemyBlue,killPlayer,null,this);
+	  game.physics.arcade.overlap(player,enemyBlue,killPlayer,null,this);
+	  game.physics.arcade.overlap(player,enemyRed,killPlayer,null,this);
 	  game.physics.arcade.overlap(enemyBlue,shuriken,killEnemy,null,this);
       game.physics.arcade.overlap(enemyRed,shuriken,killEnemy,null,this);
       
