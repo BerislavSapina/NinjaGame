@@ -15,6 +15,7 @@ var waters = [];
 var score = 0;
 var space;
 var xKey;
+var direction = 1; // 1 is right, -1 is left
 
 function preload(){
 	game.load.image("background","assets/BG.png");
@@ -105,7 +106,7 @@ function create(){
     player.animations.add('run', Phaser.Animation.generateFrameNames('run/', 1, 3, '.png', 4), 10, true, false);
 	player.animations.add('idle', Phaser.Animation.generateFrameNames('idle/', 1, 8, '.png', 4), 10, true, false);
 	player.animations.add('slash',Phaser.Animation.generateFrameNames('slash/', 1, 3, '.png', 4), 30, true, false); 
-	player.animations.add('throw',Phaser.Animation.generateFrameNames('throw/', 1, 3, '.png', 4), 10, true, false); 
+	player.animations.add('throw',Phaser.Animation.generateFrameNames('throw/', 1, 3, '.png', 4), 10, false, false); 
 	
 	//Enemies
     enemyBlue.body.gravity.y = 400;
@@ -147,7 +148,8 @@ function update() {
       game.physics.arcade.overlap(player,stars,collectStar,null,this);
       game.physics.arcade.overlap(player,enemyBlue,killPlayer,null,this);
 	  game.physics.arcade.overlap(enemyBlue,shuriken,killEnemy,null,this);
-            
+      game.physics.arcade.overlap(enemyRed,shuriken,killEnemy,null,this);
+      
       player.body.velocity.x = 0;
       
 	if (cursors.right.isDown)
@@ -156,6 +158,7 @@ function update() {
         player.body.velocity.x = 250;	
 		player.scale.setTo(0.2,0.2);
         player.animations.play('run');
+		direction = 1;
     }
 	else if (cursors.left.isDown)
     {
@@ -163,6 +166,7 @@ function update() {
         player.body.velocity.x = -250;		
 		player.scale.setTo(-0.2,0.2);	
         player.animations.play('run');
+		direction = -1;
     }
 	else if(space.isDown)
 	{
@@ -172,18 +176,26 @@ function update() {
 	{
 		player.animations.play('throw');
 		
-		shuriken = game.add.sprite(player.x + 40,player.y + 10,'shuriken','shuriken/0002.png');
-		shuriken.scale.setTo(0.1,0.1);
-		shuriken.anchor.setTo(0.5,0.5);
-		game.physics.arcade.enable(shuriken);
-		
-		//Shuriken animations
-		shuriken.animations.add('spin',Phaser.Animation.generateFrameNames('shuriken/', 1, 3, '.png', 4), 10, true, false);
-	    shuriken.animations.add('explode',Phaser.Animation.generateFrameNames('explode/', 1, 3, '.png', 4), 10, true, false);
+		if(direction === 1)
+		{
+			shuriken = game.add.sprite(player.x + 37,player.y + 6,'shuriken','shuriken/0003.png');
+			game.physics.arcade.enable(shuriken);
+			shuriken.body.velocity.x = 350;
+		}
+		else
+		{
+			shuriken = game.add.sprite(player.x - 37,player.y + 6,'shuriken','shuriken/0003.png');
+			game.physics.arcade.enable(shuriken);
+			shuriken.body.velocity.x = -350;
+		}
+			shuriken.scale.setTo(0.1,0.1);
+			shuriken.anchor.setTo(0.5,0.5);
+			
+			//Shuriken animations
+			shuriken.animations.add('spin',Phaser.Animation.generateFrameNames('shuriken/', 1, 3, '.png', 4), 10, true, false);
+			shuriken.animations.add('explode',Phaser.Animation.generateFrameNames('explode/', 1, 3, '.png', 4), 10, true, false);
 
-		shuriken.animations.play('spin');
-		
-		shuriken.body.velocity.x = 350;
+			shuriken.animations.play('spin');
 	}
     else
     {
@@ -215,8 +227,6 @@ function update() {
 	{
 	enemyRed.body.velocity.x = -100;
 	}  	
-	
-	game.physics.arcade.overlap(enemyRed,shuriken,killEnemy,null,this);
 }
 
 function render()
@@ -243,7 +253,6 @@ function killEnemy(enemy,shuriken)
 	shuriken.body.velocity.x=0;
 	setTimeout(function(){shuriken.kill();},100)
 }
-
 //END
 }
 

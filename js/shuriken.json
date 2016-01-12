@@ -2,66 +2,66 @@
 
 "explode/0001.png":
 {
-	"frame": {"x":1,"y":1,"w":1524,"h":1300},
+	"frame": {"x":5191,"y":1,"w":1132,"h":1071},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1524,"h":1300},
+	"trimmed": true,
+	"spriteSourceSize": {"x":196,"y":115,"w":1132,"h":1071},
 	"sourceSize": {"w":1524,"h":1300}
 },
 "explode/0002.png":
 {
-	"frame": {"x":1527,"y":1,"w":1524,"h":1300},
+	"frame": {"x":2445,"y":1,"w":1502,"h":1241},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1524,"h":1300},
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":30,"w":1502,"h":1241},
 	"sourceSize": {"w":1524,"h":1300}
 },
 "explode/0003.png":
 {
-	"frame": {"x":1,"y":1303,"w":1524,"h":1300},
+	"frame": {"x":1,"y":1,"w":1210,"h":1279},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1524,"h":1300},
+	"trimmed": true,
+	"spriteSourceSize": {"x":157,"y":11,"w":1210,"h":1279},
 	"sourceSize": {"w":1524,"h":1300}
 },
 "explode/0004.png":
 {
-	"frame": {"x":1527,"y":1303,"w":1524,"h":1300},
+	"frame": {"x":1213,"y":1,"w":1230,"h":1273},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1524,"h":1300},
+	"trimmed": true,
+	"spriteSourceSize": {"x":147,"y":14,"w":1230,"h":1273},
 	"sourceSize": {"w":1524,"h":1300}
 },
 "explode/0005.png":
 {
-	"frame": {"x":1,"y":2605,"w":1524,"h":1300},
+	"frame": {"x":3949,"y":1,"w":1240,"h":1149},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1524,"h":1300},
+	"trimmed": true,
+	"spriteSourceSize": {"x":142,"y":76,"w":1240,"h":1149},
 	"sourceSize": {"w":1524,"h":1300}
 },
 "shuriken/0001.png":
 {
-	"frame": {"x":1527,"y":2605,"w":224,"h":222},
+	"frame": {"x":5413,"y":1074,"w":192,"h":192},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":224,"h":222},
+	"trimmed": true,
+	"spriteSourceSize": {"x":16,"y":15,"w":192,"h":192},
 	"sourceSize": {"w":224,"h":222}
 },
 "shuriken/0002.png":
 {
-	"frame": {"x":1753,"y":2605,"w":224,"h":222},
+	"frame": {"x":5607,"y":1074,"w":190,"h":190},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":224,"h":222},
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":16,"w":190,"h":190},
 	"sourceSize": {"w":224,"h":222}
 },
 "shuriken/0003.png":
 {
-	"frame": {"x":1979,"y":2605,"w":224,"h":222},
+	"frame": {"x":5191,"y":1074,"w":220,"h":220},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":224,"h":222},
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":220,"h":220},
 	"sourceSize": {"w":224,"h":222}
 }},
 "meta": {
@@ -69,8 +69,8 @@
 	"version": "1.0",
 	"image": "shuriken.png",
 	"format": "RGBA8888",
-	"size": {"w":3906,"h":3906},
+	"size": {"w":6324,"h":1295},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5d0dd5efd1dd2d69deea3b54288f7c32:2cb1b0391dfc891ff270d46ddb867b4f:80b507b24c9b31bdf0cd1ad06c5f1b43$"
+	"smartupdate": "$TexturePacker:SmartUpdate:79e059f59812fcfc9a1c5b4948afeb74:5fa52632309a2c691a9fae207883bd76:80b507b24c9b31bdf0cd1ad06c5f1b43$"
 }
 }
