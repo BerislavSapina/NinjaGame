@@ -16,6 +16,7 @@ var score = 0;
 var space;
 var xKey;
 var direction = 1; // 1 is right, -1 is left
+var superStar;
 
 function preload(){
 	game.load.image("background","assets/BG.png");
@@ -35,10 +36,9 @@ function preload(){
 }
 function create(){
 		
-	game.world.setBounds(0,0,3000,750);		
+	game.world.setBounds(0,0,2000,750);		
     game.add.sprite(0,0,"background");
 	game.add.sprite(1000,0,"background");
-    game.add.sprite(2000,0,"background");
 	  
     platforms = game.add.group();
     platforms.enableBody = true;
@@ -50,13 +50,13 @@ function create(){
     tiles[0].body.immovable = true;  
     
     waters[0] = platforms.create(640,game.world.height-99,"water");
-    waters[0].body.immovable = true;
+    waters[0].body.immovable = false;
     
     grounds[1] = platforms.create(896,game.world.height-99,"ground");
     grounds[1].body.immovable = true;
     
     waters[1] = platforms.create(1536,game.world.height-99,"water");
-    waters[1].body.immovable = true;
+    waters[1].body.immovable = false;
     
     grounds[2] = platforms.create(1792,game.world.height-99,"ground");
     grounds[2].body.immovable = true;
@@ -64,7 +64,7 @@ function create(){
     grounds[3] = platforms.create(2432,game.world.height-99,"ground");
     grounds[3].body.immovable = true;
     
-    tiles[1] = platforms.create(1180,game.world.height - 550,"platform");
+    tiles[1] = platforms.create(1150,game.world.height - 550,"platform");
     tiles[1].body.immovable = true; 
 	
 	tiles[2] = platforms.create(990,game.world.height - 430, "platform");
@@ -112,7 +112,7 @@ function create(){
 	  
     player.body.bounce.y = 0.1;
     player.body.gravity.y = 600;
-    player.body.collideWorldBounds = true;
+    player.body.collideWorldBounds = true
 	
 	//Player animations
     player.animations.add('run', Phaser.Animation.generateFrameNames('run/', 1, 3, '.png', 4), 10, true, false);
@@ -130,30 +130,31 @@ function create(){
     stars = game.add.group();
     stars.enableBody = true;
     
-    for(var i = 5; i < 10; i++)
-    {
+    for(var i = 5; i < 10; i++){
       var star = stars.create(i*60,game.world.height-150,"star");
       star.body.gravity.y = 9;
       star.body.bounce.y = 0.7 + Math.random() * 0.4;
     }
     
-    for(var i = 5; i < 10; i++)
-    {
-      var star = stars.create(350 + i *60,game.world.height-400,"star");
+    for(var i = 5; i < 10; i++){
+      star = stars.create(350 + i *60,game.world.height-400,"star");
       star.body.gravity.y = 9;
       star.body.bounce.y = 0.7 + Math.random() * 0.4;
     }
-	for(var i = 0; i < 9; i++)
-	{
-	star = stars.create(980 + i*60,game.world.height-150,"star");
-	star.body.gravity.y = 9;
-	star.body.bounce.y = 0.7 + Math.random() * 0.4;
+	
+	superStar = game.add.sprite(1100,game.world.height-150,"star");
+	superStar.scale.setTo(1.5,1.5);
+	game.physics.arcade.enable(superStar);
+	
+	for(var i = 0; i < 4; i++){
+		star = stars.create(1200 + i*60,game.world.height-650,"star");
+		star.body.gravity.y = 9;
+		star.body.bounce.y = 0.7 + Math.random() * 0.4;
 	}
-
-	for(var i = 0; i < 6; i++)
-	{
-	star = stars.create(1200 + i*60,game.world.height-650,"star");
-	star.body.gravity.y = 9;
+	for(var i = 0; i < 3; i++){
+		star = stars.create(1820 + i*60,game.world.height-150,"star");
+		star.body.gravity.y = 9;
+		star.body.bounce.y = 0.7 + Math.random() * 0.4;
 	}
 	
 	cursors = game.input.keyboard.createCursorKeys();
@@ -168,36 +169,36 @@ function update() {
       game.physics.arcade.collide(enemyBlue,platforms);
       game.physics.arcade.collide(enemyRed,platforms);
       game.physics.arcade.collide(stars,platforms);
+	  
       game.physics.arcade.overlap(player,stars,collectStar,null,this);
 	  game.physics.arcade.overlap(player,enemyBlue,killPlayer,null,this);
 	  game.physics.arcade.overlap(player,enemyRed,killPlayer,null,this);
+	  game.physics.arcade.overlap(player,waters,killPlayer,null,this);
+	  game.physics.arcade.overlap(player,superStar,playerWon,null,this);
 	  game.physics.arcade.overlap(enemyBlue,shuriken,killEnemy,null,this);
       game.physics.arcade.overlap(enemyRed,shuriken,killEnemy,null,this);
+	  
       
       player.body.velocity.x = 0;
       
-	if (cursors.right.isDown)
-    {
+	if (cursors.right.isDown){
         //  Move to the left
         player.body.velocity.x = 250;	
 		player.scale.setTo(0.2,0.2);
         player.animations.play('run');
 		direction = 1;
     }
-	else if (cursors.left.isDown)
-    {
+	else if (cursors.left.isDown){
         //  Move to the left
         player.body.velocity.x = -250;		
 		player.scale.setTo(-0.2,0.2);	
         player.animations.play('run');
 		direction = -1;
     }
-	else if(space.isDown)
-	{
+	else if(space.isDown){
 		player.animations.play('slash');
 	}
-	else if(xKey.isDown)
-	{
+	else if(xKey.isDown){
 		player.animations.play('throw');
 		
 		if(direction === 1)
@@ -252,25 +253,21 @@ function update() {
 	enemyRed.body.velocity.x = -100;
 	}  	
 }
-
-function render()
-{
+function render(){
     game.debug.cameraInfo(game.camera,32,32);
     game.debug.spriteCoords(player,32,500);
 }
-
-function collectStar(player,star)
-{
+function collectStar(player,star){
   star.kill();
 }
-
-function killPlayer(player,enemyBlue)
-{
+function killPlayer(player,enemyBlue){
   player.kill();
+  alert("Game Over! Refresh page!");
 }
-
-function killEnemy(enemy,shuriken)
-{
+function playerWon(player,superStar){
+	alert("You won! Refresh page to play again!");
+}
+function killEnemy(enemy,shuriken){
 	enemy.kill();
 	shuriken.animations.stop('spin',null,true);
 	shuriken.animations.play('explode');
