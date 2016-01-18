@@ -1,6 +1,6 @@
 window.onload = function(){
 	
-var game = new Phaser.Game(1000,550, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render});
+var game = new Phaser.Game(1000,600, Phaser.AUTO, '', { preload: preload, create: create, update: update});
 
 var player;
 var enemyBlue;
@@ -109,7 +109,7 @@ function create(){
     game.physics.arcade.enable(player);
     game.physics.arcade.enable(enemyBlue);
     game.physics.arcade.enable(enemyRed);
-	  
+	
     player.body.bounce.y = 0.1;
     player.body.gravity.y = 600;
     player.body.collideWorldBounds = true
@@ -118,7 +118,7 @@ function create(){
     player.animations.add('run', Phaser.Animation.generateFrameNames('run/', 1, 3, '.png', 4), 10, true, false);
 	player.animations.add('idle', Phaser.Animation.generateFrameNames('idle/', 1, 8, '.png', 4), 10, true, false);
 	player.animations.add('slash',Phaser.Animation.generateFrameNames('slash/', 1, 3, '.png', 4), 30, true, false); 
-	player.animations.add('throw',Phaser.Animation.generateFrameNames('throw/', 1, 3, '.png', 4), 10, false, false); 
+	player.animations.add('throw',Phaser.Animation.generateFrameNames('throw/', 1, 3, '.png', 4),1000000000 , true, false); 
 	
 	//Enemies
     enemyBlue.body.gravity.y = 400;
@@ -253,10 +253,6 @@ function update() {
 	enemyRed.body.velocity.x = -100;
 	}  	
 }
-function render(){
-    game.debug.cameraInfo(game.camera,32,32);
-    game.debug.spriteCoords(player,32,500);
-}
 function collectStar(player,star){
   star.kill();
 }
@@ -265,7 +261,8 @@ function killPlayer(player,enemyBlue){
   alert("Game Over! Refresh page!");
 }
 function playerWon(player,superStar){
-	alert("You won! Refresh page to play again!");
+	superStar.kill();
+	setTimeout(function(){alert("You won! Refresh page to play again!");},100);
 }
 function killEnemy(enemy,shuriken){
 	enemy.kill();
